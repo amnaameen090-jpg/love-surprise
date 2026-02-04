@@ -1,177 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine 💕</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at top,#ffd6e8,#fff);
+  font-family:-apple-system,BlinkMacSystemFont,sans-serif;
+  overflow:hidden;
+}
 
-    body {
-      height: 100vh;
-      background: linear-gradient(180deg, #ffe1e8, #ffd1dc);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      text-align: center;
-    }
+/* Card */
+.card{
+  background:white;
+  padding:30px;
+  border-radius:22px;
+  text-align:center;
+  width:90%;
+  max-width:330px;
+  box-shadow:0 15px 40px rgba(0,0,0,.18);
+  animation:intro 1.3s ease;
+  z-index:10;
+}
 
-    .card {
-      background: #fff;
-      width: 88%;
-      max-width: 360px;
-      padding: 32px 26px;
-      border-radius: 22px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-      position: relative;
-      z-index: 2;
-      animation: fadeIn 1.2s ease;
-    }
+@keyframes intro{
+  from{opacity:0;transform:scale(.85) translateY(30px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
 
-    h1 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
+h1{margin:0;font-size:28px}
+p{margin-top:10px;font-size:17px}
 
-    p {
-      font-size: 18px;
-      font-weight: 600;
-      line-height: 1.6;
-      color: #333;
-      margin-bottom: 26px;
-    }
+.buttons{
+  margin-top:22px;
+  position:relative;
+  height:120px;
+}
 
-    .buttons {
-      position: relative;
-      height: 60px;
-    }
+button{
+  padding:12px 26px;
+  font-size:18px;
+  border-radius:30px;
+  border:none;
+  cursor:pointer;
+}
 
-    button {
-      padding: 12px 28px;
-      font-size: 16px;
-      border-radius: 25px;
-      border: none;
-      cursor: pointer;
-      position: absolute;
-    }
+.yes{background:#ff4d6d;color:white}
+.no{background:#ddd;position:absolute}
 
-    .yes {
-      background: #ff6fa5;
-      color: white;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+/* Floating emojis */
+.float{
+  position:absolute;
+  bottom:-30px;
+  animation:float 7s linear forwards;
+  opacity:.85;
+}
 
-    .no {
-      background: #eaeaea;
-      color: #333;
-      left: 10%;
-    }
+@keyframes float{
+  from{transform:translateY(0) scale(.6);opacity:0}
+  to{transform:translateY(-110vh) scale(1.3);opacity:0}
+}
 
-    /* 💖 HEARTS */
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 24px;
-      animation: floatUp 3s linear forwards;
-      pointer-events: none;
-    }
+/* Sparkles */
+.sparkle{
+  position:absolute;
+  width:6px;
+  height:6px;
+  background:rgba(255,200,220,.9);
+  border-radius:50%;
+  box-shadow:0 0 10px rgba(255,200,220,.9);
+  animation:spark 2s ease-out forwards;
+}
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) scale(1.6);
-        opacity: 0;
-      }
-    }
+@keyframes spark{
+  from{opacity:1;transform:scale(1)}
+  to{opacity:0;transform:scale(2)}
+}
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+/* Popper */
+.pop{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:pink;
+  border-radius:50%;
+  animation:pop .8s ease-out forwards;
+}
+
+@keyframes pop{
+  to{
+    transform:translate(var(--x),var(--y));
+    opacity:0;
+  }
+}
+</style>
 </head>
+
 <body>
 
-  <!-- 🎵 Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<div class="card">
+  <h1>Mufsila 💖</h1>
+  <p id="text">Hey… I made this just for you 🥺</p>
 
-  <div class="card" id="card">
-    <h1>Mufsila 💕</h1>
-    <p id="text">you mean everything to me 💗 ?</p>
-
-    <div class="buttons" id="buttons">
-      <button class="yes" onclick="yesClicked()">Yes 💖</button>
-      <button class="no" id="noBtn">No</button>
-    </div>
+  <div class="buttons">
+    <button class="yes" onclick="yesClicked()">Yes 💕</button>
+    <button class="no" id="noBtn">No 😳</button>
   </div>
+</div>
 
-  <script>
-    const noBtn = document.getElementById("noBtn");
-    const card = document.getElementById("card");
-    const text = document.getElementById("text");
-    const buttons = document.getElementById("buttons");
-    const music = document.getElementById("bgMusic");
+<!-- Music -->
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
-    // NO button runs away 😈
-    function moveNoButton() {
-      const maxX = buttons.offsetWidth - noBtn.offsetWidth;
-      const maxY = buttons.offsetHeight - noBtn.offsetHeight;
+<script>
+// Shy NO button
+const noBtn=document.getElementById("noBtn");
+noBtn.addEventListener("mouseover",moveNo);
+noBtn.addEventListener("touchstart",moveNo);
 
-      noBtn.style.left = Math.random() * maxX + "px";
-      noBtn.style.top = Math.random() * maxY + "px";
-    }
+function moveNo(){
+  const x=Math.random()*200-100;
+  const y=Math.random()*80-40;
+  noBtn.style.transform=`translate(${x}px,${y}px)`;
+}
 
-    noBtn.addEventListener("mouseover", moveNoButton);
-    noBtn.addEventListener("touchstart", moveNoButton);
+// YES click
+function yesClicked(){
+  document.getElementById("text").innerHTML=
+    "Yayyy 🥰 You made my day 💖";
+  document.getElementById("music").play();
+  poppers();
+}
 
-    // YES clicked 💖
-    function yesClicked() {
-      // play music
-      music.volume = 0.4;
-      music.play().catch(() => {});
+// Floating hearts + party emoji (FIRST IMPRESSION)
+setInterval(()=>{
+  const el=document.createElement("div");
+  el.className="float";
+  el.innerHTML=Math.random()>0.5?"❤️":"🎉";
+  el.style.left=Math.random()*100+"vw";
+  el.style.fontSize=(Math.random()*20+15)+"px";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),7000);
+},600);
 
-      // change message
-      text.innerHTML = `You’re my favorite “yes”<br>in a world full of maybes 💕`;
+// Sparkling effect (random shine)
+setInterval(()=>{
+  const s=document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),2000);
+},300);
 
-      // remove buttons
-      buttons.remove();
-
-      // hearts
-      for (let i = 0; i < 25; i++) {
-        createHeart();
-      }
-    }
-
-    function createHeart() {
-      const heart = document.createElement("div");
-      heart.className = "heart";
-      heart.innerText = "💖";
-      heart.style.left = Math.random() * 100 + "vw";
-      heart.style.animationDuration = 2 + Math.random() * 2 + "s";
-      document.body.appendChild(heart);
-
-      setTimeout(() => heart.remove(), 4000);
-    }
-  </script>
+// Popper burst
+function poppers(){
+  for(let i=0;i<35;i++){
+    const p=document.createElement("div");
+    p.className="pop";
+    p.style.left="50%";
+    p.style.top="50%";
+    p.style.setProperty("--x",(Math.random()*320-160)+"px");
+    p.style.setProperty("--y",(Math.random()*320-160)+"px");
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(),800);
+  }
+}
+</script>
 
 </body>
 </html>
